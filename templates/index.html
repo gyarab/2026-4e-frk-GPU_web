@@ -1,1 +1,88 @@
-<h1> hi </h1>
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Porovnávač grafických karet</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header>
+        <h1>Porovnávač grafických karet</h1>
+        <nav>
+            <a href="#prehled">Přehled karet</a>
+            <a href="#doporuceni">Doporučení</a>
+            <a href="#koupy">Dobré koupě</a>
+            <a href="#">Přihlásit se</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <section id="prehled">
+            <h2>Přehled karet</h2>
+            <input type="text" placeholder="Hledat kartu...">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Karta</th>
+                        <th>Cena (Kč)</th>
+                        <th>Výkon</th>
+                        <th>Dostupnost</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ukázková karta A</td>
+                        <td>8 000</td>
+                        <td>100</td>
+                        <td>Skladem</td>
+                    </tr>
+                    <tr>
+                        <td>Ukázková karta B</td>
+                        <td>12 000</td>
+                        <td>140</td>
+                        <td>Skladem</td>
+                    </tr>
+                    <tr>
+                        <td>Ukázková karta C</td>
+                        <td>20 000</td>
+                        <td>190</td>
+                        <td>Není skladem</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="note">Ukázková data, později se načtou z databáze.</p>
+        </section>
+
+        <section id="doporuceni">
+            <h2>Doporučení</h2>
+            <p>Zadej rozpočet a co hraješ, appka navrhne vhodnou kartu.</p>
+            <form>
+                <label>Rozpočet (Kč)
+                    <input type="number" name="budget" placeholder="15000">
+                </label>
+                <label>Rozlišení
+                    <select name="resolution">
+                        <option>1080p</option>
+                        <option>1440p</option>
+                        <option>4K</option>
+                    </select>
+                </label>
+                <label>Hry
+                    <input type="text" name="games" placeholder="Valorant, Fortnite">
+                </label>
+                <button type="button">Doporučit kartu</button>
+            </form>
+        </section>
+
+        <section id="koupy">
+            <h2>Dobré koupě</h2>
+            <p>Tady se zobrazí karty, které jsou levnější, než by odpovídalo jejich výkonu, a graf s regresní přímkou.</p>
+        </section>
+
+    </main>
+
+</body>
+</html>
