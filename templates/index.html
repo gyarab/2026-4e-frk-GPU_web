@@ -58,7 +58,7 @@
 
         <section id="doporuceni">
             <h2>Doporučení</h2>
-            <p>Zadej rozpočet a co hraješ, appka navrhne vhodnou kartu.</p>
+            <p>Zadej rozpočet a co hraješ, aplikace navrhne vhodnou kartu.</p>
             <form>
                 <label>Rozpočet (Kč)
                     <input type="number" name="budget" placeholder="15000">
@@ -80,9 +80,55 @@
         <section id="koupy">
             <h2>Dobré koupě</h2>
             <p>Tady se zobrazí karty, které jsou levnější, než by odpovídalo jejich výkonu, a graf s regresní přímkou.</p>
+            <div class="chart-box">
+    <canvas id="graf"></canvas>
+</div>
         </section>
 
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+    const body = [
+        {x: 100, y: 8000},
+        {x: 140, y: 12000},
+        {x: 190, y: 20000}
+    ];
+
+    const n = body.length;
+    const sx = body.reduce((a, p) => a + p.x, 0);
+    const sy = body.reduce((a, p) => a + p.y, 0);
+    const sxy = body.reduce((a, p) => a + p.x * p.y, 0);
+    const sxx = body.reduce((a, p) => a + p.x * p.x, 0);
+    const sklon = (n * sxy - sx * sy) / (n * sxx - sx * sx);
+    const posun = (sy - sklon * sx) / n;
+
+    const xmin = Math.min(...body.map(p => p.x));
+    const xmax = Math.max(...body.map(p => p.x));
+
+    new Chart(document.getElementById("graf"), {
+        type: "scatter",
+        data: {
+            datasets: [
+                {label: "Karty", data: body, pointRadius: 6},
+                {
+                    label: "Regresní přímka",
+                    type: "line",
+                    data: [
+                        {x: xmin, y: sklon * xmin + posun},
+                        {x: xmax, y: sklon * xmax + posun}
+                    ],
+                    pointRadius: 0
+                }
+            ]
+        },
+        options: {
+            scales: {
+                x: {title: {display: true, text: "Výkon"}},
+                y: {title: {display: true, text: "Cena (Kč)"}}
+            }
+        }
+    });
+</script>
 </body>
 </html>
